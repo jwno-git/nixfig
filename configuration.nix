@@ -13,6 +13,14 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 3;  # Keep only 3 boot entries
+
+  # Automatic garbage collection - keep 3 most recent
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   # use latest kernel for audio fx.
   boot.kernelPackages = pkgs.linuxPackages;
@@ -163,7 +171,6 @@
 	kdePackages.kdenlive
 	libreoffice
 	mpv
-	standardnotes
         
         # Bluetooth Audio Support
         bluez

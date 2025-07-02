@@ -94,6 +94,66 @@
   "udev.log_level=3"
   ];
 
+  {
+    # Enable TLP service with your exact settings
+    services.tlp = {
+      enable = true;
+    
+      settings = {
+        # Core TLP settings
+        TLP_ENABLE = 1;
+      
+        # CPU Management - Your Performance-Focused Settings
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      
+        # CPU Frequency Limits (from your config)
+        CPU_SCALING_MIN_FREQ_ON_AC = 400000;
+        CPU_SCALING_MAX_FREQ_ON_AC = 2000000;
+        CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
+        CPU_SCALING_MAX_FREQ_ON_BAT = 2000000;
+      
+        # CPU Energy/Performance Policy - Your Power-Focused Approach
+        CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      
+        # Intel P-State Performance Limits
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 80;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 50;
+      
+        # CPU Turbo Boost - Disabled for power saving
+        CPU_BOOST_ON_AC = 0;
+        CPU_BOOST_ON_BAT = 0;
+      
+        # Platform Profiles - Your Quiet/Low-Power Setup
+        PLATFORM_PROFILE_ON_AC = "quiet";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
+      
+        # AMD GPU Settings - Matches Your Hardware
+        RADEON_DPM_PERF_LEVEL_ON_AC = "low";
+        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+      
+        # WiFi Power Management - Your Always-On Power Saving
+        WIFI_PWR_ON_AC = "on";
+        WIFI_PWR_ON_BAT = "on";
+      
+        # PCIe Power Management - Your Aggressive Power Saving
+        PCIE_ASPM_ON_AC = "powersupersave";
+        PCIE_ASPM_ON_BAT = "powersupersave";
+      
+        # Runtime Power Management - Your Auto Settings
+        RUNTIME_PM_ON_AC = "auto";
+        RUNTIME_PM_ON_BAT = "auto";
+      
+        # Battery Care - Your 20-80% Charging Strategy
+        START_CHARGE_THRESH_BAT0 = 20;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
+  }
+
   # Enable the X11 windowing system.
   services.xserver.enable = false;
 

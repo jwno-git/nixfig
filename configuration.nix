@@ -184,8 +184,9 @@
 	HYPRCURSOR_SIZE = "32";
   };
 
-  # Enable zsh
-  programs.zsh.enable = true;
+  # Enable bash and set it as default shell
+  programs.bash.enable = true;
+  users.defaultUserShell = pkgs.bash;
 
   # Disable root login
   users.users.root.hashedPassword = "!";
@@ -196,15 +197,15 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.jwno = {
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
-     shell = pkgs.zsh;
+     shell = pkgs.bash;
   };
   
   users.users.root = {
-     shell = pkgs.zsh;
+     shell = pkgs.bash;
   };
 
   # Allow Unfree
@@ -271,7 +272,7 @@
 
 	# Terminal
 	foot
-	zsh
+	bash
 
 	# Theme Dependencies
 	glib
@@ -368,4 +369,3 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-

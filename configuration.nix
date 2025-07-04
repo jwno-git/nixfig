@@ -94,65 +94,63 @@
   "udev.log_level=3"
   ];
 
-  {
-    # Enable TLP service with your exact settings
-    services.tlp = {
-      enable = true;
+  # Enable TLP service with your exact settings
+  services.tlp = {
+    enable = true;
+  
+    settings = {
+      # Core TLP settings
+      TLP_ENABLE = 1;
     
-      settings = {
-        # Core TLP settings
-        TLP_ENABLE = 1;
-      
-        # CPU Management - Your Performance-Focused Settings
-        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      
-        # CPU Frequency Limits (from your config)
-        CPU_SCALING_MIN_FREQ_ON_AC = 400000;
-        CPU_SCALING_MAX_FREQ_ON_AC = 2000000;
-        CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
-        CPU_SCALING_MAX_FREQ_ON_BAT = 2000000;
-      
-        # CPU Energy/Performance Policy - Your Power-Focused Approach
-        CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      
-        # Intel P-State Performance Limits
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 80;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 50;
-      
-        # CPU Turbo Boost - Disabled for power saving
-        CPU_BOOST_ON_AC = 0;
-        CPU_BOOST_ON_BAT = 0;
-      
-        # Platform Profiles - Your Quiet/Low-Power Setup
-        PLATFORM_PROFILE_ON_AC = "quiet";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
-      
-        # AMD GPU Settings - Matches Your Hardware
-        RADEON_DPM_PERF_LEVEL_ON_AC = "low";
-        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
-      
-        # WiFi Power Management - Your Always-On Power Saving
-        WIFI_PWR_ON_AC = "on";
-        WIFI_PWR_ON_BAT = "on";
-      
-        # PCIe Power Management - Your Aggressive Power Saving
-        PCIE_ASPM_ON_AC = "powersupersave";
-        PCIE_ASPM_ON_BAT = "powersupersave";
-      
-        # Runtime Power Management - Your Auto Settings
-        RUNTIME_PM_ON_AC = "auto";
-        RUNTIME_PM_ON_BAT = "auto";
-      
-        # Battery Care - Your 20-80% Charging Strategy
-        START_CHARGE_THRESH_BAT0 = 20;
-        STOP_CHARGE_THRESH_BAT0 = 80;
-      };
+      # CPU Management - Your Performance-Focused Settings
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    
+      # CPU Frequency Limits (from your config)
+      CPU_SCALING_MIN_FREQ_ON_AC = 400000;
+      CPU_SCALING_MAX_FREQ_ON_AC = 2000000;
+      CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
+      CPU_SCALING_MAX_FREQ_ON_BAT = 2000000;
+    
+      # CPU Energy/Performance Policy - Your Power-Focused Approach
+      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    
+      # Intel P-State Performance Limits
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 80;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 50;
+    
+      # CPU Turbo Boost - Disabled for power saving
+      CPU_BOOST_ON_AC = 0;
+      CPU_BOOST_ON_BAT = 0;
+    
+      # Platform Profiles - Your Quiet/Low-Power Setup
+      PLATFORM_PROFILE_ON_AC = "quiet";
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+    
+      # AMD GPU Settings - Matches Your Hardware
+      RADEON_DPM_PERF_LEVEL_ON_AC = "low";
+      RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+    
+      # WiFi Power Management - Your Always-On Power Saving
+      WIFI_PWR_ON_AC = "on";
+      WIFI_PWR_ON_BAT = "on";
+    
+      # PCIe Power Management - Your Aggressive Power Saving
+      PCIE_ASPM_ON_AC = "powersupersave";
+      PCIE_ASPM_ON_BAT = "powersupersave";
+    
+      # Runtime Power Management - Your Auto Settings
+      RUNTIME_PM_ON_AC = "auto";
+      RUNTIME_PM_ON_BAT = "auto";
+    
+      # Battery Care - Your 20-80% Charging Strategy
+      START_CHARGE_THRESH_BAT0 = 20;
+      STOP_CHARGE_THRESH_BAT0 = 80;
     };
-  }
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = false;
@@ -216,113 +214,134 @@
 	packages = with pkgs; [
 		font-awesome
 		terminus_font
-        ];
+    ];
 	fontconfig.enable = true;
   };
 
   # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-	#Apps
-	google-chrome
-	eog
-	firefox
-	gimp
-	gnome-calculator
-	kdePackages.kdenlive
-	libreoffice
-	mpv
-        
-        # Bluetooth Audio Support
-        bluez
-	
-	# Development
-	git
+    # Graphics drivers
+    amdvlk
+    mesa
 
-	# File Manager
-	lf
+    # Applications
+    bitwarden
+    eog
+    firefox
+    gimp
+    google-chrome
+    joplin-desktop
+    kdePackages.kdenlive
+    mpv
 
-	# Fonts
-	font-awesome
-	terminus_font
+    # Audio/Bluetooth
+    bluez
+    pipewire
+    pwvucontrol
+    wireplumber
 
-	# Hyprland Ecosystem
-	hyprland
-	hyprlock
-	hyprpaper
-	hyprpicker
+    # Development
+    git
+    openssh
 
-	# Network Management
-        networkmanagerapplet
+    # File utilities
+    chafa
+    lf
+    tar
+    unzip
+    zip
+    zstd
 
-	# Sixel Support
-	imagemagick
-	libsixel
+    # Fonts
+    font-awesome
+    terminus_font
 
-	# System utilities
-	brightnessctl
-	btop
-	curl
-	fastfetch
-	fbset
-	jq
-	lxqt.lxqt-policykit
-	vim
-	wget
+    # Hyprland ecosystem
+    hyprland
+    hyprlock
+    hyprpaper
+    hyprpicker
 
-	# Terminal
-	foot
-	bash
+    # Network management
+    networkmanager
+    networkmanagerapplet
 
-	# Theme Dependencies
-	glib
-	gsettings-desktop-schemas
-	gtk3
-	gtk4
+    # Security
+    nftables
+    polkit
 
-	# Wayland
-	cliphist
-	dunst
-	grim
-	libnotify
-	slurp
-	swappy
-	waybar
-	wf-recorder
-	wl-clipboard
-	wlogout
-	wofi
+    # Shell and terminal
+    bash
+    foot
 
-	# Audio/Bluetooth
-	pipewire
-	pwvucontrol
+    # Sixel support
+    imagemagick
+    libsixel
 
-	# Add makeDesktopItem to create custom desktop entries
-	(makeDesktopItem {
-	name = "btop";
-	exec = "foot btop";
-	icon = "htop";
-	desktopName = "btop";
-        comment = "Resource monitor";
-        categories = [ "System" "Monitor" ];
-        terminal = false;
-        })
+    # System utilities
+    brightnessctl
+    btop
+    curl
+    dconf
+    fastfetch
+    fbset
+    jq
+    lxqt.lxqt-policykit
+    mtr
+    pkexec
+    psmisc
+    tlp
+    vim
+    wget
 
-        (makeDesktopItem {
-        name = "lf";
-        exec = "foot lf";
-        icon = "file-manager";
-        desktopName = "lf";
-        comment = "Terminal file manager";
-        categories = [ "System" "FileManager" ];
-        terminal = false;
-     })
-        # Hide printing-related desktop entries
-        (runCommand "hide-printing-entries" {} ''
-        mkdir -p $out/share/applications
-        echo -e "[Desktop Entry]\nHidden=true" > $out/share/applications/org.gtk.PrintEditor4.desktop
-        echo -e "[Desktop Entry]\nHidden=true" > $out/share/applications/cups.desktop
-     '')
+    # Theme dependencies
+    glib
+    gsettings-desktop-schemas
+    gtk3
+    gtk4
+
+    # Wayland ecosystem
+    cliphist
+    dunst
+    grim
+    libinput
+    libnotify
+    slurp
+    swappy
+    waybar
+    wf-recorder
+    wl-clipboard
+    wlogout
+    wofi
+    xdg-desktop-portal-gtk
+
+    # Add makeDesktopItem to create custom desktop entries
+    (makeDesktopItem {
+    name = "btop";
+    exec = "foot btop";
+    icon = "htop";
+    desktopName = "btop";
+    comment = "Resource monitor";
+    categories = [ "System" "Monitor" ];
+    terminal = false;
+    })
+
+    (makeDesktopItem {
+    name = "lf";
+    exec = "foot lf";
+    icon = "file-manager";
+    desktopName = "lf";
+    comment = "Terminal file manager";
+    categories = [ "System" "FileManager" ];
+    terminal = false;
+    })
+
+    # Hide printing-related desktop entries
+    (runCommand "hide-printing-entries" {} ''
+    mkdir -p $out/share/applications
+    echo -e "[Desktop Entry]\nHidden=true" > $out/share/applications/org.gtk.PrintEditor4.desktop
+    echo -e "[Desktop Entry]\nHidden=true" > $out/share/applications/cups.desktop
+    '')
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
